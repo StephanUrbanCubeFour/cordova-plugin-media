@@ -17,25 +17,15 @@
     under the License.
 -->
 
-# cordova-plugin-media
+# org.apache.cordova.media
 
 這個外掛程式提供錄製和播放設備上的音訊檔的能力。
 
 **注**： 當前的實現並不遵循 W3C 規範的媒體捕獲和僅用於提供方便。 將來的實現將堅持以最新的 W3C 規範和可能棄用當前 Api。
 
-這個外掛程式定義的全球 `Media` 建構函式。
-
-雖然在全球範圍內，它不可用直到 `deviceready` 事件之後。
-
-    document.addEventListener("deviceready", onDeviceReady, false);
-    function onDeviceReady() {
-        console.log(Media);
-    }
-    
-
 ## 安裝
 
-    cordova plugin add cordova-plugin-media
+    cordova plugin add org.apache.cordova.media
     
 
 ## 支援的平臺
@@ -45,7 +35,7 @@
 *   iOS
 *   Windows Phone 7 和 8
 *   Tizen
-*   Windows
+*   Windows 8
 
 ## Windows Phone 怪癖
 
@@ -72,7 +62,7 @@
 
 ### 常量
 
-下列常量 `mediaStatus` 回檔報告作為唯一的參數：
+以下常量作為唯一的參數到據報告 `mediaStatus` 回檔：
 
 *   `Media.MEDIA_NONE` = 0;
 *   `Media.MEDIA_STARTING` = 1;
@@ -104,15 +94,15 @@
 
 ### 附加唯讀參數
 
-*   **position**： 內音訊播放，以秒為單位的位置。
+*   **位置**： 內音訊播放，以秒為單位的位置。
     
     *   不會自動更新期間播放 ；調用 `getCurrentPosition` 來更新。
 
-*   **duration**: 媒體的持續時間以秒為單位。
+*   **持續時間**: 媒體的持續時間以秒為單位。
 
 ## media.getCurrentPosition
 
-返回一個音訊檔內的當前位置。此外可以更新 `Media` 物件 `Position` 參數。
+返回一個音訊檔內的當前位置。此外可以更新 `Media` 物件的 `position` 參數。
 
     media.getCurrentPosition(mediaSuccess, [mediaError]);
     
@@ -149,7 +139,7 @@
 
 ## media.getDuration
 
-返回一個音訊檔的持續時間以秒為單位。如果持續時間是未知的則傳回值為-1。
+以秒為單位返回一個音訊檔的持續時間。如果持續時間是未知的則傳回值為-1。
 
     media.getDuration();
     
@@ -207,7 +197,7 @@
 
 ## media.play
 
-開始或繼續播放音訊檔。
+開始或重新開始播放音訊檔。
 
     media.play();
     
@@ -255,7 +245,7 @@
 
 ## media.release
 
-釋放底層作業系統的音訊資源。 這是安卓系統，特別是重要的因為有一個有限的 OpenCore 實例進行媒體重播。 應用程式應調用 `release` 功能不再需要任何 `Media` 資源。
+釋放底層作業系統的音訊資源。 這是特別重要的 android 作業系統，因為有了有限數量的 OpenCore 實例播放媒體。 應用程式應當調用 `release` 函數的任何 `Media` 不再需要的資源。
 
     media.release();
     
@@ -280,7 +270,7 @@
 
 ### 參數
 
-*   **miliseconds）**： 要以毫秒為單位設置中，音訊的播放位置的位置。
+*   **毫秒為單位）**： 要以毫秒為單位設置中，音訊的播放位置的位置。
 
 ### 快速的示例
 
@@ -302,12 +292,12 @@
 
 設置音訊檔的音量。
 
-    media.setVolume(volume);
+    media.setVolume(volume) ；
     
 
 ### 參數
 
-*   **volume**： 要為播放設置的卷。值必須在 0.0 到 1.0 的範圍內。
+*   **體積**： 要為播放設置的卷。值必須在 0.0 到 1.0 的範圍內。
 
 ### 支援的平臺
 
@@ -347,9 +337,9 @@
 
 ## media.startRecord
 
-開始錄製音訊檔。
+開始錄製的音訊檔。
 
-    media.startRecord();
+    media.startRecord() ；
     
 
 ### 支援的平臺
@@ -357,7 +347,7 @@
 *   Android 系統
 *   iOS
 *   Windows Phone 7 和 8
-*   Windows
+*   Windows 8
 
 ### 快速的示例
 
@@ -384,7 +374,6 @@
 ### Android 的怪癖
 
 *   Android 設備音訊格式記錄的自我調整多速率。指定的檔應以*.amr*副檔名結尾。
-*   硬體音量控制有線到媒體卷中，而任何媒體物件是還活著。 一旦最後創建的媒體物件具有 `release()` 在它上面調用，音量控制還原為其預設行為。 因為這會釋放所有媒體物件，控制項也上頁面導航，重置。
 
 ### iOS 的怪癖
 
@@ -397,24 +386,18 @@
         var myMedia = new Media("documents://beer.mp3")
         
 
-### Windows 的怪癖
+### Tizen 怪癖
 
-*   如果沒有提供完整的路徑，錄音被放在應用程式/temp 目錄。這可以通過訪問 `檔` API 使用 `LocalFileSystem.TEMPORARY` 或 ' ms appdata： temp / / /<filename>' URI。
-
-*   在記錄時指定的任何子目錄中必須已經存在。
-
-### 泰怪癖
-
-*   不支援在 Tizen 設備上。
+*   Tizen 設備上不支援。
 
 ## media.stop
 
 停止播放音訊檔。
 
-    media.stop();
+    media.stop() ；
     
 
-### 簡單的例子
+### 快速的示例
 
     // Play audio
     //
@@ -443,19 +426,19 @@
 
 ## media.stopRecord
 
-停止錄製的音訊檔。
+停止錄製音訊檔。
 
-    media.stopRecord();
+    media.stopRecord() ；
     
 
 ### 支援的平臺
 
-*   安卓系統
+*   Android 系統
 *   iOS
 *   Windows Phone 7 和 8
-*   Windows
+*   Windows 8
 
-### 簡單的例子
+### 快速的示例
 
     // Record audio
     //
@@ -483,23 +466,23 @@
     }
     
 
-### 泰怪癖
+### Tizen 怪癖
 
-*   不支援在 Tizen 設備上。
+*   Tizen 設備上不支援。
 
 ## MediaError
 
-當發生錯誤時，`mediaError` 回呼函數情況下會返回一個 `MediaError` 物件。
+A `MediaError` 物件返回到 `mediaError` 時出現錯誤的回呼函數。
 
 ### 屬性
 
-*   **code**： 下面列出的預定義的錯誤代碼之一。
+*   **代碼**： 下面列出的預定義的錯誤代碼之一。
 
-*   **message**： 錯誤訊息，描述該錯誤的詳細資訊。
+*   **消息**： 錯誤訊息描述該錯誤的詳細資訊。
 
 ### 常量
 
-*   `MediaError.MEDIA_ERR_ABORTED`= 1
-*   `MediaError.MEDIA_ERR_NETWORK`= 2
-*   `MediaError.MEDIA_ERR_DECODE`= 3
-*   `MediaError.MEDIA_ERR_NONE_SUPPORTED`= 4
+*   `MediaError.MEDIA_ERR_ABORTED` = 1
+*   `MediaError.MEDIA_ERR_NETWORK` = 2
+*   `MediaError.MEDIA_ERR_DECODE` = 3
+*   `MediaError.MEDIA_ERR_NONE_SUPPORTED` = 4

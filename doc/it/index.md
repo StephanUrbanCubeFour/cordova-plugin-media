@@ -17,25 +17,15 @@
     under the License.
 -->
 
-# cordova-plugin-media
+# org.apache.cordova.media
 
 Questo plugin consente di registrare e riprodurre i file audio su un dispositivo.
 
 **Nota**: l'implementazione attuale non aderisce a una specifica del W3C per l'acquisizione di mezzi e viene fornito solo per comodità. Una futura realizzazione aderirà alla specifica W3C più recente e può deprecare le API corrente.
 
-Questo plugin definisce un costruttore `Media` globale.
-
-Anche se in ambito globale, non è disponibile fino a dopo l'evento `deviceready`.
-
-    document.addEventListener("deviceready", onDeviceReady, false);
-    function onDeviceReady() {
-        console.log(Media);
-    }
-    
-
 ## Installazione
 
-    cordova plugin add cordova-plugin-media
+    cordova plugin add org.apache.cordova.media
     
 
 ## Piattaforme supportate
@@ -45,7 +35,7 @@ Anche se in ambito globale, non è disponibile fino a dopo l'evento `deviceready
 *   iOS
 *   Windows Phone 7 e 8
 *   Tizen
-*   Windows
+*   Windows 8
 
 ## Stranezze di Windows Phone
 
@@ -72,7 +62,7 @@ Anche se in ambito globale, non è disponibile fino a dopo l'evento `deviceready
 
 ### Costanti
 
-Costanti sono segnalate come unico parametro al metodo di callback `mediaStatus`:
+Costanti sono segnalate come unico parametro per il `mediaStatus` callback:
 
 *   `Media.MEDIA_NONE` = 0;
 *   `Media.MEDIA_STARTING` = 1;
@@ -112,7 +102,7 @@ Costanti sono segnalate come unico parametro al metodo di callback `mediaStatus`
 
 ## media.getCurrentPosition
 
-Restituisce la posizione corrente all'interno di un file audio. Aggiorna anche il parametro di `position` dell'oggetto `Media`.
+Restituisce la posizione corrente all'interno di un file audio. Aggiorna anche il `Media` dell'oggetto `position` parametro.
 
     media.getCurrentPosition(mediaSuccess, [mediaError]);
     
@@ -255,7 +245,7 @@ Avvia o riprende la riproduzione di un file audio.
 
 ## media.release
 
-Rilascia le risorse audio del sistema operativo sottostante. Ciò è particolarmente importante per Android, dato che ci sono una quantità finita di OpenCore istanze per la riproduzione multimediale. Le applicazioni devono chiamare la funzione di `release` qualsiasi risorsa `Media` non è più necessario.
+Rilascia le risorse audio del sistema operativo sottostante. Ciò è particolarmente importante per Android, dato che ci sono una quantità finita di OpenCore istanze per la riproduzione multimediale. Le applicazioni devono chiamare il `release` funzione per qualsiasi `Media` risorsa che non è più necessario.
 
     media.release();
     
@@ -357,7 +347,7 @@ Avvia la registrazione di un file audio.
 *   Android
 *   iOS
 *   Windows Phone 7 e 8
-*   Windows
+*   Windows 8
 
 ### Esempio rapido
 
@@ -384,7 +374,6 @@ Avvia la registrazione di un file audio.
 ### Stranezze Android
 
 *   Dispositivi Android registrano audio in formato Adaptive Multi-Rate. Il file specificato deve terminare con l'estensione ** .
-*   I controlli di volume di hardware sono cablati a volume media mentre eventuali oggetti multimediali sono vivi. Una volta l'ultimi Media creati oggetto ha `release()` chiamato su di esso, i controlli di volume di tornare alla loro comportamento predefinito. I controlli vengono reimpostati anche sulla pagina di navigazione, come questo rilascia tutti gli oggetti multimediali.
 
 ### iOS stranezze
 
@@ -397,12 +386,6 @@ Avvia la registrazione di un file audio.
         var myMedia = new Media("documents://beer.mp3")
         
 
-### Stranezze di Windows
-
-*   Se non è specificato un percorso completo, la registrazione viene inserita nella directory AppData/temp. Questo si può accedere tramite il `File` Utilizzando API `LocalFileSystem.TEMPORARY` o ' ms-appdata: / / temp /<filename>' URI.
-
-*   Deve esistere alcuna sottodirectory specificate a tempo di record.
-
 ### Tizen stranezze
 
 *   Tizen periferiche non supportano.
@@ -411,7 +394,7 @@ Avvia la registrazione di un file audio.
 
 Interrompe la riproduzione di un file audio.
 
-    media.stop();
+    Media.Stop();
     
 
 ### Esempio rapido
@@ -453,7 +436,7 @@ Smette di registrare un file audio.
 *   Android
 *   iOS
 *   Windows Phone 7 e 8
-*   Windows
+*   Windows 8
 
 ### Esempio rapido
 
@@ -489,7 +472,7 @@ Smette di registrare un file audio.
 
 ## Errore MediaError
 
-Un oggetto ` MediaError` viene restituito alla funzione di callback ` mediaError` quando si verifica un errore.
+A `MediaError` oggetto viene restituito alla `mediaError` funzione di callback quando si verifica un errore.
 
 ### Proprietà
 
@@ -499,7 +482,7 @@ Un oggetto ` MediaError` viene restituito alla funzione di callback ` mediaError
 
 ### Costanti
 
-*   `MediaError.MEDIA_ERR_ABORTED`= 1
-*   `MediaError.MEDIA_ERR_NETWORK`= 2
-*   `MediaError.MEDIA_ERR_DECODE`= 3
-*   `MediaError.MEDIA_ERR_NONE_SUPPORTED`= 4
+*   `MediaError.MEDIA_ERR_ABORTED` = 1
+*   `MediaError.MEDIA_ERR_NETWORK` = 2
+*   `MediaError.MEDIA_ERR_DECODE` = 3
+*   `MediaError.MEDIA_ERR_NONE_SUPPORTED` = 4

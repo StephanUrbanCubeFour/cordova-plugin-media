@@ -141,8 +141,19 @@ public class AudioPlayer implements OnCompletionListener, OnPreparedListener, On
         case NONE:
             this.audioFile = file;
             this.recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            this.recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT); // THREE_GPP);
-            this.recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT); //AMR_NB);
+
+
+				//changed to record in MP4 instead of AMR
+			 recorder.setAudioSamplingRate(16000);
+			 recorder.setAudioEncodingBitRate(16000);
+			 recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+			 recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+
+
+
+
+
+
             this.recorder.setOutputFile(this.tempFile);
             try {
                 this.recorder.prepare();
@@ -418,7 +429,7 @@ public class AudioPlayer implements OnCompletionListener, OnPreparedListener, On
     private void setMode(MODE mode) {
         if (this.mode != mode) {
             //mode is not part of the expected behavior, so no notification
-            //this.handler.webView.sendJavascript("cordova.require('cordova-plugin-media.Media').onStatus('" + this.id + "', " + MEDIA_STATE + ", " + mode + ");");
+            //this.handler.webView.sendJavascript("cordova.require('org.apache.cordova.media.Media').onStatus('" + this.id + "', " + MEDIA_STATE + ", " + mode + ");");
         }
         this.mode = mode;
     }
@@ -490,24 +501,10 @@ public class AudioPlayer implements OnCompletionListener, OnPreparedListener, On
                 case MEDIA_STOPPED:
                     //if we are readying the same file
                     if (this.audioFile.compareTo(file) == 0) {
-                        //maybe it was recording?
-                        if(this.recorder!=null && player==null) {
-                            this.player = new MediaPlayer();
-                            this.prepareOnly = false;
-
-                            try {
-                                this.loadAudioFile(file);
-                            } catch (Exception e) {
-                                sendErrorStatus(MEDIA_ERR_ABORTED);
-                            }
-                            return false;//we´re not ready yet
-                        } 
-                        else {
-                           //reset the audio file
-                            player.seekTo(0);
-                            player.pause();
-                            return true; 
-                        } 
+                        //reset the audio file
+                        player.seekTo(0);
+                        player.pause();
+                        return true;
                     } else {
                         //reset the player
                         this.player.reset();

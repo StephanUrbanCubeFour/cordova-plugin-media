@@ -17,25 +17,15 @@
     under the License.
 -->
 
-# cordova-plugin-media
+# org.apache.cordova.media
 
 このプラグインは、記録し、デバイス上のオーディオ ファイルを再生する機能を提供します。
 
 **注**: 現在の実装では、メディアのキャプチャのための W3C 仕様に準拠していないとは便宜上提供されるだけです。 将来の実装を最新の W3C 仕様に準拠し、現在 Api をとがめることがあります。
 
-このプラグインでは、グローバル `Media` のコンス トラクターを定義します。
-
-グローバル スコープではあるがそれがないまで `deviceready` イベントの後です。
-
-    document.addEventListener("deviceready", onDeviceReady, false);
-    function onDeviceReady() {
-        console.log(Media);
-    }
-    
-
 ## インストール
 
-    cordova plugin add cordova-plugin-media
+    cordova plugin add org.apache.cordova.media
     
 
 ## サポートされているプラットフォーム
@@ -45,7 +35,7 @@
 *   iOS
 *   Windows Phone 7 と 8
 *   Tizen
-*   Windows
+*   Windows 8
 
 ## Windows Phone の癖
 
@@ -72,7 +62,7 @@
 
 ### 定数
 
-次の定数は、`mediaStatus` コールバックを唯一のパラメーターとして報告されます。
+次の定数を唯一のパラメーターとして報告されます、 `mediaStatus` コールバック。
 
 *   `Media.MEDIA_NONE` = 0;
 *   `Media.MEDIA_STARTING` = 1;
@@ -112,7 +102,7 @@
 
 ## media.getCurrentPosition
 
-オーディオ ファイル内の現在位置を返します。また、`Media` オブジェクトの `position` パラメーターを更新します。
+オーディオ ファイル内の現在位置を返します。また更新して、 `Media` オブジェクトの `position` パラメーター。
 
     media.getCurrentPosition(mediaSuccess, [mediaError]);
     
@@ -255,7 +245,7 @@
 
 ## media.release
 
-基になるオペレーティング システムのオーディオ リソースを解放します。 メディアの再生のための OpenCore インスタンスの有限な量があるので、人造人間のため特に重要です。 アプリケーションが不要な `Media` リソースの `release` の関数を呼び出す必要があります。
+基になるオペレーティング システムのオーディオ リソースを解放します。 メディアの再生のための OpenCore インスタンスの有限な量があるので、人造人間のため特に重要です。 アプリケーションを呼び出す必要があります、 `release` 任意の関数 `Media` は、もはや必要なリソースです。
 
     media.release();
     
@@ -357,7 +347,7 @@
 *   アンドロイド
 *   iOS
 *   Windows Phone 7 と 8
-*   Windows
+*   Windows 8
 
 ### 簡単な例
 
@@ -384,7 +374,6 @@
 ### Android の癖
 
 *   Android 端末適応型マルチレート形式にオーディオを録音します。指定したファイルは、 *.amr*拡張子で終わる必要があります。
-*   メディア オブジェクトが生きている間、ハードウェアのボリューム コントロールは有線メディア ボリュームまで。 一度 `release()` それと呼ばれるオブジェクトには最後に作成したメディア、ボリューム コントロールのデフォルトの動作に戻ります。 コントロールは、すべてのメディア オブジェクトをリリースこれとしてページ ナビゲーションにもリセットされます。
 
 ### iOS の癖
 
@@ -396,12 +385,6 @@
     
         var myMedia = new Media("documents://beer.mp3")
         
-
-### Windows の癖
-
-*   完全なパスを指定しない場合、記録は AppData/temp ディレクトリに配置されます。これを介してアクセスすることができます、 `ファイル` API を使用してください。 `LocalFileSystem.TEMPORARY` または ' ms appdata: temp////<filename>' URI。
-
-*   記録時に指定された任意のサブディレクトリに存在する必要があります。
 
 ### Tizen の癖
 
@@ -453,7 +436,7 @@
 *   アンドロイド
 *   iOS
 *   Windows Phone 7 と 8
-*   Windows
+*   Windows 8
 
 ### 簡単な例
 
@@ -489,7 +472,7 @@
 
 ## MediaError
 
-`MediaError` オブジェクトにエラーが発生したときに `mediaError` コールバック関数に返されます。
+A `MediaError` オブジェクトに返される、 `mediaError` コールバック関数でエラーが発生したとき。
 
 ### プロパティ
 
@@ -499,7 +482,7 @@
 
 ### 定数
 
-*   `MediaError.MEDIA_ERR_ABORTED`= 1
-*   `MediaError.MEDIA_ERR_NETWORK`= 2
-*   `MediaError.MEDIA_ERR_DECODE`= 3
-*   `MediaError.MEDIA_ERR_NONE_SUPPORTED`= 4
+*   `MediaError.MEDIA_ERR_ABORTED` = 1
+*   `MediaError.MEDIA_ERR_NETWORK` = 2
+*   `MediaError.MEDIA_ERR_DECODE` = 3
+*   `MediaError.MEDIA_ERR_NONE_SUPPORTED` = 4
